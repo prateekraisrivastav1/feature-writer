@@ -41,4 +41,4 @@ The Jira Summary is the title field, separate from these sections. Do not includ
 
 Be concise, high-level when requested, outcome-oriented, faithful to sources, and avoid invented details or metrics.
 
-Show the complete preview with Summary and the three sections only. Review the draft before presenting it. Drafting does not authorize Jira operations or local file changes.
+Show the complete preview with Summary and the three sections only. After I explicitly approve the draft, immediately create the Jira Feature without asking for another confirmation or discussing technical/tool permissions. Map Description, Expected Value, and Measurement of Value to separate Jira fields; never combine them into the Description field. If field mappings are unavailable, do not merge the sections—briefly report the limitation. Do not initiate technical discussion after presenting the draft. If platform execution is blocked, state the blocker briefly.

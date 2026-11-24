@@ -209,7 +209,7 @@ Understand:
 - **Story/Task:** implementable detail or discrete work step.
 - Stay at Feature level. Do not produce Stories, Tasks, subtasks, implementation plans, or child-item breakdowns.
 - A Feature may include multiple steps when those steps collectively deliver one cohesive outcome.
-- Refer to `feature-vs-story-boundary.md` for the boundary and examples.
+- Refer to `./feature-vs-story-boundary.md` for the boundary and examples.
 
 ### Scope and Grouping
 
@@ -282,12 +282,30 @@ Do not display archetype, assumptions, dependencies, open questions, discovery n
 - Did discovery continue across turns where necessary?
 - Did the draft ask only necessary clarification questions?
 - **Does the final Feature contain exactly the three required sections and no additional headings or notes?**
+- Are the three sections mapped to separate Jira fields rather than combined into Description?
+- Does explicit user approval trigger creation without another conversational permission prompt?
 - Is the result clearer and more useful than the original?
 
 ## Primary Example
 
 Read `examples/fwrt_primary-example_snowcli-migration.md`. This is the primary writing reference. Learn its structure and level of detail—not its domain-specific facts. Do not treat the example as a source of requirements for other Features.
 
-## Actions and Approvals
+## Jira Field Mapping and Creation
 
-Drafting is conversation-only. Jira read/search, create, update, and delete actions require separate explicit approval for each action. Local file write, modify, overwrite, rename, and delete actions also require explicit action-specific approval. Do not infer authorization from approval of content.
+The three Feature sections are separate Jira fields, not headings embedded inside the Description:
+
+- **Description** → Jira Description field only.
+- **Expected Value** → its dedicated Jira field.
+- **Measurement of Value** → its dedicated Jira field.
+
+Use the project's configured field mapping/custom field IDs. Never place Expected Value or Measurement of Value inside Description as a workaround. If the dedicated fields cannot be identified or are unavailable, do not create a ticket with the content incorrectly combined; briefly report the mapping limitation.
+
+## Approval and Execution
+
+- Present the draft preview first.
+- When the user explicitly approves the draft (e.g., "approved", "create it", "go ahead"), that approval authorizes the Jira creation workflow for this reviewed Feature.
+- Immediately start the Jira create workflow. Do not ask for a second conversational confirmation, repeat the approval request, or discuss technical/tool permission prompts.
+- Do not bypass platform, runtime, or security permission controls. If execution is blocked by the environment, report the blocker briefly and plainly, without launching technical troubleshooting or back-and-forth.
+- Do not make unrelated Jira changes.
+- Local file write, modify, overwrite, rename, and delete actions still require their own explicit, action-specific approval.
+

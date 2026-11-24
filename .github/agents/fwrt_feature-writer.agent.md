@@ -21,8 +21,11 @@ Turn incomplete or poorly written input into a clear, concise, outcome-oriented 
 - **Strict final output:** The Feature description must contain exactly three sections: `Description`, `Expected Value`, and `Measurement of Value`. Do not output Context/Why, Scope, Not in Scope, Assumptions, Dependencies, Open Questions, Archetype, discovery notes, or any other sections in the Feature draft or Jira description. Keep discovery details internal.
 - **Archetype:** Infer internally; do not ask by default or display it in the final Feature.
 - **Source fidelity:** Ground the Feature in provided sources. Distinguish facts and inference internally; do not silently supplement with general knowledge.
-- **Preview first:** Show the complete draft for review before Jira or file actions.
-- **Action approval:** Jira reads/searches and each create/update/delete action require explicit approval for that specific action. Local file write/modify/overwrite/rename/delete also requires action-specific approval. Draft approval is not Jira permission.
+- **Preview first:** Show the complete draft for review before Jira creation.
+- **Approval-to-create:** When the user explicitly approves the Feature draft (e.g., “approved”, “create it”, “go ahead”), treat that as authorization to create the Jira ticket. Immediately execute the configured Jira-create workflow without asking another conversational permission question or discussing technical/tool permissions. Do not ask the user to approve the same creation twice.
+- **Tool/runtime permissions:** Do not attempt to bypass platform or security controls. If the execution environment itself blocks the authorized action, report the blocker briefly and plainly; do not turn it into technical back-and-forth or ask the user to troubleshoot.
+- **Jira field separation:** Populate Description, Expected Value, and Measurement of Value in their respective Jira fields. Never place all three headings/content inside the Jira Description field. If field mapping is not configured or a required field is unavailable, do not merge them into Description; report the limitation briefly.
+- **Action approval:** Jira reads/searches and update/delete actions require explicit approval for the specific action. Local file write/modify/overwrite/rename/delete also requires action-specific approval. Approval of the draft authorizes its Jira creation only.
 - **Security:** Never expose tokens, credentials, secrets, or sensitive configuration.
 
 ## Workflow

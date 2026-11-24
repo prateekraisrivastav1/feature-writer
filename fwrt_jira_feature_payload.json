@@ -1,0 +1,10 @@
+{
+  "project_key": "AIST",
+  "issue_type": "Feature",
+  "summary": "Ongoing Snowflake Software Development and Improvements",
+  "description": "### Description\nProvide ongoing software development for Snowflake, covering a mix of new development, enhancements, fixes, and operational improvements across all Snowflake software initiatives.\n\n### Expected Value\nEnable Snowflake software to evolve in response to development needs while improving existing capabilities and addressing defects and operational issues.\n\n### Measurement of Value\nMeasurement is based on the successful delivery and validation of approved Snowflake software development work, including enhancements, fixes, and operational improvements.",
+  "labels": [],
+  "components": [],
+  "sources": [],
+  "assumptions": []
+}
