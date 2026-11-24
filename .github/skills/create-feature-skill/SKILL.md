@@ -1,6 +1,6 @@
 ---
 name: create-feature-skill
-description: Conversational discovery, instructions, format, quality criteria, archetypes, and a primary example for drafting clear Jira Features from rough or incomplete inputs.
+description: Interactive discovery, instructions, format, quality criteria, archetypes, and a primary example for drafting clear Jira Features from rough or incomplete inputs.
 ---
 
 # Create Feature Skill
@@ -13,35 +13,100 @@ Create clear, concise, outcome-oriented Jira Features from rough requests, techn
 
 ### Opening
 
-Invite the user to provide a **brief or detailed description** in their own words. They may provide business context, technical notes, requirements, documents, or an existing Feature. Avoid forcing a template or asking them to select a work type upfront.
+Invite the user to provide a brief description in their own words. They may describe a component, initiative, business need, technical change, rough idea, or provide supporting documents.
+
+Do not require a structured template or detailed requirements upfront.
 
 Example:
 
-> Describe the Feature you want to create. A brief description is fine, or you can share detailed requirements, technical notes, or supporting documents.
+> What Feature would you like to create? A brief description or component name is enough to get started.
 
-### Classify the Work from the User's Input
+### Guided Initial Discovery
 
-Infer the likely work type to guide relevant clarification. This classification is for the Copilot's reasoning—not a required user selection and not necessarily the Feature archetype.
+After the user's initial description, begin a lightweight interactive discovery session using the following four questions to establish the broad nature of the Feature.
 
-Common work types and useful follow-up dimensions:
+These questions are a starting framework—not a rigid questionnaire. Use information already provided by the user to skip, adapt, or simplify questions when appropriate.
 
-| Work type | Clarify only if material and missing |
-|---|---|
-| Migration | Source, target, what is being migrated, migration boundary (all vs selected), coexistence/cutover constraints |
-| New capability | Capability needed, intended users/consumers, desired outcome |
-| Enhancement | Existing capability/process, desired change, reason or pain point |
-| Automation | Current manual/automated process, what should be automated, trigger, desired result |
-| Integration | Systems involved, direction/flow, expected interaction or outcome |
-| Data pipeline / processing | Source data, processing/transformation, destination/consumer, outcome or schedule if relevant |
-| Infrastructure / platform change | Current environment/component, desired change, affected scope, constraints |
-| Investigation / POC | Question or uncertainty to resolve, what will be explored, evidence/outcome needed, whether implementation is included |
-| BAU / operational work | Recurring activity or theme, scope, intended operational result |
+#### Question 1 — What type of Feature is this?
 
-Do not mechanically ask every question in a row. Use what the user already provided and ask only the most important missing detail.
+Suggested choices:
+
+- Business-focused
+- Technical
+- Business & Technical
+- Umbrella / High-level
+- Other
+
+Use the user's choice to guide the writing approach and level of detail. Do not treat this selection as the Feature archetype.
+
+#### Question 2 — What kind of work is this?
+
+Suggested choices:
+
+- BAU / Operational work
+- New Capability / Initiative
+- Enhancement to existing functionality
+- Proof of Concept / Exploration
+- Migration / Modernization
+- Other
+
+Adapt the choices to the user's context when appropriate. The user should not be forced to select an irrelevant option.
+
+#### Question 3 — What are you trying to achieve?
+
+Ask the user to briefly describe the desired outcome.
+
+Example:
+
+> What are you trying to achieve with this Feature? A sentence or two is enough.
+
+This can be free text. Do not ask for detailed requirements at this stage.
+
+#### Question 4 — What is the scope at a high level?
+
+Suggested choices:
+
+- A single cohesive Feature
+- A broad / Umbrella Feature
+- I'm not sure yet
+- Other
+
+Use the response to understand how the user wants the work tracked. Do not split or merge work contrary to the user's decision.
+
+### Interactive Choice Behavior
+
+Where the interface supports interactive choice controls:
+
+- Present choices as selectable buttons/options.
+- Keep the question and option labels short and clear.
+- Include an **Other** option wherever choices are presented.
+- Selecting **Other** must reveal an inline text input where the user can enter a custom answer.
+- The custom answer must be submitted as the user's answer and treated exactly like a predefined choice.
+- After a custom answer is submitted, continue the discovery conversation using that answer.
+- Do not require the user to select a predefined option if their answer does not fit.
+
+If interactive buttons are unavailable, present the same choices in a concise conversational format and allow the user to type their response.
+
+### Adaptive Discovery
+
+The four initial questions establish a high-level overview. They do not necessarily provide enough information to draft a good Feature.
+
+After each response:
+
+1. Incorporate the user's answer into the working understanding.
+2. Reassess what is known and what remains unclear.
+3. Determine whether another question is materially needed.
+4. Ask the next most useful question, one at a time.
+5. Adapt the question to the user's answers and the type of work.
+6. Stop when the Feature can be drafted clearly and responsibly.
+
+Do not mechanically ask all four questions if the user's initial description already answers some of them.
+
+Do not mechanically ask additional questions just to complete a checklist.
 
 ### Mandatory Multi-Turn Discovery Loop
 
-**Discovery is a continuing conversation, not a single clarification step. Do not stop after asking one question.**
+**Discovery is a continuing conversation, not a single clarification step. Do not stop after asking one question or after the initial four questions if important gaps remain.**
 
 After the user's initial description:
 
@@ -49,10 +114,12 @@ After the user's initial description:
 2. Extract all information already provided.
 3. Identify the material information still missing.
 4. Select the single most important unanswered question.
-5. Ask that question in natural language and wait for the user's response.
-6. Incorporate the answer into the working understanding of the Feature.
-7. Reassess the remaining gaps and determine the next most useful question.
-8. Repeat this process until enough information is available to draft a clear and correctly scoped Feature.
+5. Present the question with relevant options when useful.
+6. Include a working `Other` option for custom answers.
+7. Wait for the user's response.
+8. Incorporate the answer into the working understanding of the Feature.
+9. Reassess the remaining gaps and determine the next most useful question.
+10. Repeat until enough information is available to draft a clear and correctly scoped Feature.
 
 After every user response, reassess the information. Do not simply move through a predefined list of questions.
 
@@ -66,15 +133,18 @@ Maintain the following discovery state internally throughout the conversation:
 
 Do not ask the user to repeat information already supplied.
 
-**Continue asking questions when:**
+### Continue Asking Questions When
+
 - The answer reveals another important gap.
 - The scope is still unclear.
 - The source and target of a migration are not established.
 - The intended outcome is not understood.
 - The answer introduces additional systems, processes, or scope that need clarification.
 - The user's response creates ambiguity about grouping or delivery expectations.
+- The difference between exploration and implementation materially affects the Feature.
 
-**Stop asking questions when:**
+### Stop Asking Questions When
+
 - The intended outcome is sufficiently clear.
 - The main scope and boundaries are understood.
 - Material grouping decisions have been resolved.
@@ -88,6 +158,8 @@ When discovery is complete, briefly summarize the understanding and proceed to t
 ### Clarification Rules
 
 - Ask **one focused question per turn**.
+- Use interactive options where they help the user answer quickly.
+- Always make `Other` functional when choices are presented.
 - Wait for the user's answer before asking the next question.
 - Continue the discovery conversation across multiple turns until sufficient information is available.
 - Prefer concrete, natural-language questions over jargon or archetype labels.
@@ -109,6 +181,7 @@ Use these questions as guidance, not as a mandatory questionnaire. Ask only what
 **Migration**
 
 Understand:
+
 - What is the source system or technology?
 - What is the target system or technology?
 - What needs to be migrated?
@@ -117,31 +190,10 @@ Understand:
 - Are setup, configuration, validation, or cutover part of the intended scope?
 - Are there known constraints or dependencies?
 
-Example conversation:
-
-User:
-"We need to migrate from SnowSQL to SnowCLI."
-
-Feature Writer:
-"Which SnowSQL usage are we migrating—scripts, scheduled jobs, applications, automation, or all existing usage?"
-
-User:
-"All AURA scripts and scheduled jobs."
-
-Feature Writer:
-"Is SnowCLI already configured in the target environment, or should setting it up be included in this migration?"
-
-User:
-"We need to configure it first."
-
-Feature Writer:
-"Which environments should this migration cover?"
-
-The Feature Writer should continue based on each answer, asking the next relevant question until the migration scope is sufficiently understood.
-
 **New Capability**
 
 Understand:
+
 - What capability is needed?
 - Who or what will use it?
 - What outcome should it enable?
@@ -150,6 +202,7 @@ Understand:
 **Enhancement**
 
 Understand:
+
 - What existing capability or process is being enhanced?
 - What needs to change?
 - Why is the change needed?
@@ -158,6 +211,7 @@ Understand:
 **Automation**
 
 Understand:
+
 - What is the current process?
 - Which parts should be automated?
 - What initiates the automation?
@@ -166,6 +220,7 @@ Understand:
 **Integration**
 
 Understand:
+
 - Which systems are involved?
 - What information or actions need to flow between them?
 - What is the expected interaction or outcome?
@@ -174,6 +229,7 @@ Understand:
 **Data Pipeline / Processing**
 
 Understand:
+
 - Where does the data originate?
 - What processing or transformation is required?
 - Where does the data need to go?
@@ -183,6 +239,7 @@ Understand:
 **Infrastructure / Platform Change**
 
 Understand:
+
 - What is the current platform or component?
 - What change is intended?
 - Which environments or components are affected?
@@ -191,6 +248,7 @@ Understand:
 **Investigation / POC**
 
 Understand:
+
 - What question or uncertainty needs to be resolved?
 - What needs to be explored?
 - What evidence or outcome is expected?
@@ -199,6 +257,7 @@ Understand:
 **BAU / Operational Work**
 
 Understand:
+
 - What recurring activity or operational theme is involved?
 - What is included in the scope?
 - What operational outcome is expected?
@@ -233,15 +292,17 @@ Show the inferred archetype in the preview. If uncertainty is not consequential,
 Use this structure. Include only relevant subsections; do not create empty headings.
 
 ---
-status: draft
-summary: <concise Feature title>
-project:
-issue_type: Feature
-labels: []
-components:
-priority:
-jira_key:
-jira_url:
+
+status: draft  
+summary: <concise Feature title>  
+project:  
+issue_type: Feature  
+labels: []  
+components:  
+priority:  
+jira_key:  
+jira_url:  
+
 ---
 
 # <Feature title>
@@ -312,7 +373,10 @@ If the user explicitly chooses one Feature for an end-to-end outcome, output one
 - Are assumptions, dependencies, and open questions transparent?
 - Is the archetype appropriate?
 - Did the draft honor the user's latest grouping decision?
-- Did the discovery process continue across turns where necessary?
+- Did the discovery process adapt to the user's answers?
+- Were choices concise and relevant?
+- Was `Other` available and functional when choices were presented?
+- Did discovery continue across turns where necessary?
 - Did the draft ask only necessary clarification questions?
 - Is the result clearer and more useful than the original?
 
