@@ -1,0 +1,25 @@
+{
+  "_comment": "Feature Writer isolated config draft. Confirm Jira Feature issue type and custom fields before using. No credentials.",
+  "base_url": "https://ecanarys.atlassian.net",
+  "deployment": "cloud",
+  "default_project": "Aflac",
+  "defaultProjectKey": "AIST",
+  "allowed_projects": [
+    "Aflac"
+  ],
+  "default_issue_type": "Feature",
+  "allowed_issue_types": [
+    "Feature"
+  ],
+  "default_labels": [
+    "feature-writer"
+  ],
+  "default_components": [],
+  "fields": {
+    "expected_value": "TBD_CONFIRM_FIELD_ID",
+    "measurement_of_value": "TBD_CONFIRM_FIELD_ID"
+  },
+  "default_fields": {},
+  "ca_bundle": "",
+  "timeout_seconds": 30
+}

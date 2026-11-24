@@ -1,0 +1,10 @@
+{
+  "project_key": "AIST",
+  "issue_type": "Feature",
+  "summary": "Replace legacy scheduler integration with target platform",
+  "description": "Context / Why\\nDescribe the source-backed reason for the change.\\n\\nScope\\nDescribe the cohesive Feature outcome and boundaries.\\n\\nExpected Value\\nDescribe the supported expected benefit.\\n\\nMeasurement of Value\\nDescribe how completion/value will be assessed without inventing targets.\\n\\nAssumptions / Dependencies / Open Questions\\nList unresolved items.",
+  "labels": [],
+  "components": [],
+  "sources": [],
+  "assumptions": []
+}
